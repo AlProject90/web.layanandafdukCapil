@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Layanan Dukcapil</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <header class="bg-blue-700 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-semibold">Dashboard Layanan Dukcapil</h1>
+      <nav class="space-x-4">
+        <a href="index.html" class="hover:underline">Beranda</a>
+        <a href="faq.html" class="hover:underline">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-6" x-data="layananApp()">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold">Daftar Layanan</h2>
+      <input type="text" x-model="search" placeholder="Cari layanan..." class="border px-3 py-2 rounded shadow-sm w-64" />
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <template x-for="(item, index) in filteredLayanan" :key="index">
+        <div class="bg-white shadow rounded-lg p-4 hover:shadow-xl transition cursor-pointer" @click="selectLayanan(index)">
+          <h3 class="text-blue-600 font-bold text-lg" x-text="item.judul"></h3>
+          <p class="text-sm text-gray-600 mt-1">Klik untuk detail</p>
+        </div>
+      </template>
+    </div>
+
+    <div x-show="selected !== null" class="mt-8 bg-white rounded-lg shadow p-6">
+      <button class="text-red-600 mb-4" @click="selected = null">← Kembali</button>
+      <h2 class="text-xl font-bold text-blue-700 mb-2" x-text="layanan[selected].judul"></h2>
+      <div>
+        <h3 class="font-semibold mb-1">Persyaratan:</h3>
+        <pre class="bg-gray-100 p-3 rounded mb-3 text-sm whitespace-pre-wrap" x-text="layanan[selected].persyaratan"></pre>
+        <h3 class="font-semibold mb-1">Penjelasan:</h3>
+        <p class="text-sm" x-text="layanan[selected].penjelasan"></p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function layananApp() {
+      return {
+        search: '',
+        selected: null,
+        layanan: [
+          { judul: "Pencatatan Biodata WNI Dalam Wilayah NKRI", persyaratan: "Formulir F-1.01, KK, dll", penjelasan: "Pencatatan penduduk dalam wilayah NKRI." },
+          { judul: "Pencatatan Biodata WNI Luar Negeri", persyaratan: "Formulir, dokumen imigrasi", penjelasan: "Pencatatan penduduk di luar negeri." },
+          { judul: "Pendaftaran Penduduk Datang dari Luar Negeri", persyaratan: "Paspor, surat pindah", penjelasan: "WNI kembali dari luar negeri." },
+          { judul: "Perubahan Data Penduduk", persyaratan: "Formulir F-1.03, dokumen pendukung", penjelasan: "Perubahan data seperti nama, status." },
+          { judul: "Penerbitan KTP-el", persyaratan: "Berusia 17 tahun, KK, rekam biometrik", penjelasan: "Penerbitan pertama KTP-el." },
+          { judul: "Penerbitan KIA", persyaratan: "Akta lahir, KK, foto", penjelasan: "Kartu Identitas Anak 0-17 tahun." },
+          { judul: "Pindah Datang Antar Kabupaten", persyaratan: "Surat pindah, KK", penjelasan: "Kepindahan antar kabupaten/kota." },
+          { judul: "Pindah Antar Provinsi", persyaratan: "Surat pindah, KK", penjelasan: "Kepindahan antar provinsi." },
+          { judul: "Pindah dari Luar Negeri", persyaratan: "Paspor, surat keterangan", penjelasan: "WNI kembali ke Indonesia." },
+          { judul: "Pencatatan Kelahiran", persyaratan: "Surat lahir, KK, buku nikah", penjelasan: "Pencatatan akta kelahiran." },
+          { judul: "Pencatatan Kematian", persyaratan: "Surat kematian, KTP, KK", penjelasan: "Penerbitan akta kematian." },
+          { judul: "Pencatatan Perkawinan", persyaratan: "Surat nikah, KK", penjelasan: "Catatan status menikah." },
+          { judul: "Pencatatan Perceraian", persyaratan: "Putusan pengadilan, KK", penjelasan: "Catatan status cerai." },
+          { judul: "Penerbitan KK Baru", persyaratan: "Formulir, dokumen pendukung", penjelasan: "KK baru karena perubahan data." },
+          { judul: "Perubahan Nama", persyaratan: "Putusan pengadilan, akta lama", penjelasan: "Perubahan nama resmi." }
+        ],
+        get filteredLayanan() {
+          return this.layanan.filter(l => l.judul.toLowerCase().includes(this.search.toLowerCase()));
+        },
+        selectLayanan(index) {
+          this.selected = index;
+        }
+      }
+    }
+  </script>
+</body>
+</html>

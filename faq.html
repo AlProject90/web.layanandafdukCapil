@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ Dukcapil Interaktif</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <header class="bg-blue-700 text-white p-4 shadow">
+    <div class="container mx-auto flex justify-between items-center">
+      <nav class="space-x-4">
+        <a href="index.html" class="hover:underline">Beranda</a>
+        <a href="index.html" class="hover:underline">Layanan</a>
+        <a href="faq.html" class="underline font-semibold">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-6">
+    <h1 class="text-3xl font-bold text-center mb-6">Ayo Tanya Jawab Seputaran Layanan Pendaftaran Penduduk dan Pencatatan Sipil </h1>
+
+<div x-data="faqSearch()" class="max-w-xl mx-auto">
+  <input 
+    type="text" 
+    x-model="query" 
+    placeholder="Search questions..." 
+    class="w-full p-2 border border-gray-300 rounded mb-4"
+  >
+
+  <!-- Results only shown when query is not empty -->
+  <template x-if="query">
+    <template x-if="filteredFaqs.length > 0">
+      <template x-for="item in filteredFaqs" :key="item.question">
+        <div class="card">
+		<style>
+  .question {
+    color: green; /* warna hijau untuk pertanyaan */
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .answer {
+    color: #333333; /* abu gelap untuk jawaban */
+    margin-bottom: 20px;
+  }
+</style>
+
+<div class="question" x-text="item.question"></div>
+<div class="answer" x-html="item.answer"></div>
+        </div>
+      </template>
+    </template>
+  </template>
+
+  <!-- Show "no result" message only after query is typed -->
+  <div x-show="query && filteredFaqs.length === 0" x-cloak class="text-gray-500">
+    No matching questions found.
+  </div>
+</div>
+
+    <div class="text-center mt-10">
+      <a href="index.html" class="text-blue-600 hover:underline">← Kembali ke Beranda</a>
+    </div>
+  </main>
+<script>
+function faqSearch() {
+  return {
+    query: '',
+    faqs: [
+      {
+        question: 'Pencatatan Biodata WNI Dalam Wilayah NKRI',
+        answer: `<ul class="list-disc pl-5 space-y-1">
+          <li>Surat pengantar (asli) dari rukun tetangga dan rukun warga atau yang disebut dengan nama lain</li>
+          <li>Fotokopi dokumen atau bukti Peristiwa Kependudukan dan Peristiwa Penting</li>
+          <li>Fotokopi bukti pendidikan terakhir (Pasal 4 Perpres 96/2018)</li>
+        </ul>`
+      },
+      {
+        question: 'Pencatatan Biodata WNI Di Luar Wilayah NKRI',
+        answer: `<ul class="list-disc pl-5 space-y-1">
+          <li>Fotokopi Dokumen Perjalanan Republik Indonesia</li>
+          <li>Surat keterangan yang menunjuk domisili</li>
+          <li>Fotokopi dokumen atau bukti Peristiwa Kependudukan dan Peristiwa Penting</li>
+          <li>Fotokopi bukti pendidikan terakhir</li>
+        </ul>`
+      },
+      {
+        question: 'Pencatatan Biodata Orang Asing (OA)',
+        answer: `<ul class="list-disc pl-5 space-y-1">
+          <li>Fotokopi Dokumen Perjalanan</li>
+          <li>Fotokopi kartu izin tinggal terbatas atau izin tinggal tetap</li>
+        </ul>`
+      },
+      {
+        question: 'Penerbitan Kartu Keluarga Baru Karena Membentuk Keluarga Baru',
+        answer: `<ul class="list-disc pl-5 space-y-1">
+          <li>Fotokopi buku nikah/kutipan akta perkawinan atau kutipan akta perceraian</li>
+          <li>SPTJM perkawinan/perceraian belum tercatat (F-1.05), jika tidak dapat melampirkan kutipan akta</li>
+        </ul>`
+      },
+      {
+        question: 'Penerbitan Kartu Keluarga Baru Karena Penggantian Kepala Keluarga',
+        answer: `<ul class="list-disc pl-5 space-y-1">
+          <li>Fotokopi akta kematian</li>
+          <li>Fotokopi KK lama</li>
+        </ul>`
+      },
+      {
+        question: 'Penerbitan Kartu Keluarga Baru Karena Pisah KK Dalam Satu Alamat',
+        answer: `<ul class="list-disc pl-5 space-y-1">
+          <li>Fotokopi KK lama</li>
+          <li>Berumur sekurang-kurangnya 17 tahun atau sudah/pernah kawin dibuktikan dengan KTP-el</li>
+        </ul>`
+      },
+      {
+        question: 'Penerbitan Kartu Keluarga Karena Perubahan Data',
+        answer: `<ul class="list-disc pl-5 space-y-1">
+          <li>KK lama</li>
+          <li>Fotokopi surat keterangan/bukti perubahan Peristiwa Kependudukan dan Peristiwa Penting</li>
+        </ul>`
+      },
+      {
+        question: 'Penerbitan Kartu Keluarga Karena Hilang/Rusak',
+        answer: `<ul class="list-disc pl-5 space-y-1">
+          <li>Surat keterangan hilang dari kepolisian atau KK yang rusak</li>
+          <li>Fotokopi KTP-el</li>
+          <li>Fotokopi kartu izin tinggal tetap (untuk OA)</li>
+        </ul>`
+      },
+      {
+        question: 'Penerbitan KTP-el Baru Untuk WNI',
+        answer: `<ul class="list-disc pl-5 space-y-1">
+          <li>Telah berusia 17 tahun, sudah kawin, atau pernah kawin</li>
+          <li>Fotokopi KK</li>
+        </ul>`
+      },
+      {
+        question: 'Penerbitan KTP-el Baru Karena Pindah, Perubahan Data, Rusak dan Hilang Untuk WNI',
+        answer: `<ul class="list-disc pl-5 space-y-1">
+          <li>SKP (jika pindah datang)</li>
+          <li>KTP-el lama dan bukti perubahan data (jika perubahan data)</li>
+          <li>KTP-el rusak (jika rusak)</li>
+          <li>Surat kehilangan dari kepolisian (jika hilang)</li>
+        </ul>`
+      },
+      {
+        question: 'Penerbitan KTP-el Baru Untuk OA',
+        answer: `<ul class="list-disc pl-5 space-y-1">
+          <li>Telah berusia 17 tahun, sudah/pernah kawin</li>
+          <li>Fotokopi KK</li>
+          <li>Fotokopi Dokumen Perjalanan</li>
+          <li>Fotokopi kartu izin tinggal tetap</li>
+        </ul>`
+      },
+      {
+        question: 'Penerbitan KTP-el Baru Karena Pindah, Perubahan Data, Rusak, Hilang, Perpanjangan Untuk OA',
+        answer: `<ul class="list-disc pl-5 space-y-1">
+          <li>SKP (jika pindah datang)</li>
+          <li>KTP-el lama dan bukti perubahan data</li>
+          <li>KTP-el rusak</li>
+          <li>Surat kehilangan dari kepolisian</li>
+        </ul>`
+      },
+      {
+        question: 'Penerbitan Kartu Identitas Anak Baru Untuk Anak WNI',
+        answer: `<ul class="list-disc pl-5 space-y-1">
+          <li>Fotokopi kutipan akta kelahiran & tunjukkan aslinya</li>
+          <li>KK asli orang tua/wali</li>
+          <li>KTP-el asli kedua orang tua/wali</li>
+          <li>Foto anak berwarna 2x3 (untuk usia 5–17 tahun)</li>
+        </ul>`
+      },
+      {
+        question: 'Penerbitan KIA Baru Untuk Anak OA',
+        answer: `<ul class="list-disc pl-5 space-y-1">
+          <li>Fotokopi paspor dan ITAP</li>
+          <li>KK asli orang tua/wali</li>
+          <li>KTP-el asli kedua orang tua/wali</li>
+          <li>Foto anak 2x3</li>
+        </ul>`
+      },
+      {
+        question: 'Perpindahan Penduduk WNI Dalam NKRI',
+        answer: `<ul class="list-disc pl-5 space-y-1">
+          <li>Fotokopi KK</li>
+          <li>SKPWNI dan membawa KTP-el/KIA untuk diganti</li>
+        </ul>`
+      }
+    ],
+    get filteredFaqs() {
+      return this.faqs.filter(faq =>
+        faq.question.toLowerCase().includes(this.query.toLowerCase()) ||
+        faq.answer.toLowerCase().includes(this.query.toLowerCase())
+      );
+    }
+  };
+}
+</script>
+
+
